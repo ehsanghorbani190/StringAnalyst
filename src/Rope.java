@@ -1,14 +1,10 @@
 public class Rope {
     class Node {
-
         Node left, right;
-        int data;
-        String string;
-        int q = string.length();
-
         public void insert(int a, String string) {
             int j;
             String str = "i_am_rope_data_structure";
+            int q = str.length();
             String s[] = str.split("_");
             for (j = 0; j <= q; j++) {
                 while (a < q / 2) {

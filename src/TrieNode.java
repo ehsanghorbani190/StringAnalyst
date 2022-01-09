@@ -25,11 +25,8 @@ public class TrieNode {
     public TrieNode getChild(char ch){
         return this.childs[ch - 'a'];
     }
-    public boolean hasChild(){
-        for (int i = 0; i < 26; i++) {
-            if(this.childs[i] != null) return true;
-        }
-        return false;
+    public TrieNode getChild(int i){
+        return this.childs[i];
     }
     public boolean childExists(char ch){
         return this.childs[ch - 'a'] != null;

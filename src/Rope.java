@@ -86,14 +86,59 @@ public class Rope {
 //
 //        result += s2;
 //        result += s1.substring(index);
-       // make(result);
+        // make(result);
+    }
 
+    public Rope split(int index) {
+        index++;
+        Rope result = new Rope();
+        Node temp = root, rtemp = result.root, w;
+        while (temp.string == null) {
+            if (index >= temp.data) {
+                index -= temp.data;
+                temp = temp.right;
+            } else {
+                rtemp.right = root.right;
+                rtemp.left = new Node();
+                rtemp = rtemp.left;
+                temp = temp.left;
+                root = temp;
+            }
+        }
+        w = new Node();
+        w.string = temp.string.substring(index);
+        w.data = w.string.length();
+        rtemp.left = w;
+        temp.string = temp.string.substring(0, index);
+        temp.data = temp.string.length();
+        result.root.data = weight(result.root.left);
+        deleteEmpties(root);
+        deleteEmpties(result.root);
+        rebalance(result.root.left);
+        return result;
     }
 
     public int weight(Node node) {
         if (node == null) return 0;
         if (node.string != null) return node.data;
         return weight(node.right) + weight(node.left);
+    }
+
+
+    private void rebalance(Node node) {
+        if (node == null) return;
+        if (node.string == null) node.data = weight(node.left);
+        rebalance(node.left);
+        rebalance(node.right);
+    }
+
+    private void deleteEmpties(Node node) {
+        if (node == null || node.string != null) return;
+        if (node.right != null && node.right.string != null && node.right.string.equals("")) node.right = null;
+        if (node.left != null && node.left.string != null && node.left.string.equals("")) node.left = null;
+
+        deleteEmpties(node.right);
+        deleteEmpties(node.left);
     }
 
 
@@ -208,6 +253,7 @@ public class Rope {
         r.make("Hello Ehsan are you");
         r.insert(10, "how");
         r.print();
+
 
     }
 }

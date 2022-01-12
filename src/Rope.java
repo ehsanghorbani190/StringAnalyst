@@ -39,7 +39,6 @@ public class Rope {
             strs[i] = strs[i] + " ";
         }
 
-        //System.out.println(strs.length);
         add(strs, root, 0, strs.length);
 
     }
@@ -71,21 +70,32 @@ public class Rope {
         return res;
     }
 
-    public void concat(Rope s){
+    public void concat(Rope s) {
         Node w = new Node();
         w.left = root;
         w.data = weight(w.left);
         w.right = s.root;
         root = w;
     }
-    public Rope split(int index){
+
+    public void insert(int index, String s2) {
+        String s1 = this.toString();
+        System.out.println(s1.length());
+//        String result = "";
+//        result += s1.substring(0, index + 1);
+//
+//        result += s2;
+//        result += s1.substring(index);
+       // make(result);
 
     }
+
     public int weight(Node node) {
         if (node == null) return 0;
         if (node.string != null) return node.data;
         return weight(node.right) + weight(node.left);
     }
+
 
     public static void printTree(Node root) {
         List<List<String>> lines = new ArrayList<List<String>>();
@@ -195,12 +205,8 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("Hello Ehsan");
-        r.print();
-        Rope r2 = new Rope();
-        r2.make("How Are You");
-        r2.print();
-        r.concat(r2);
+        r.make("Hello Ehsan are you");
+        r.insert(10, "how");
         r.print();
 
     }

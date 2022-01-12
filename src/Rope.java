@@ -98,6 +98,22 @@ public class Rope {
         }
         System.out.println(c);
     }
+    public void delete(int from , int to ){
+        String s1 = toString();
+        char[] arr = s1.toCharArray() ;
+        char[] result = new char[s1.length()];
+        System.out.println(arr);
+        for ( int i =0 ; i<from; i++){
+           result[i] = arr[i];
+        }
+        System.out.println(result);
+        for(int j = to+ 1 ; j< arr.length ; j++){
+            result[from] = arr[j];
+        }
+
+        String str = new String(result);
+
+    }
 
     public Rope split(int index) {
         index++;
@@ -261,9 +277,8 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-
         r.make("Hello Ehsan  Are You Doing These Days");
-        r.index(2);
+        r.delete(0 , 4);
 
     }
 }

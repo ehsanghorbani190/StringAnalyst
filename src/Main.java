@@ -43,6 +43,9 @@ public class Main {
                 Rope temp = ropes.get(Integer.parseInt(cp[1]) - 1).split(Integer.parseInt(cp[2]) - 1);
                 ropes.add(temp);
             }
+            else if(command.equalsIgnoreCase("index")){
+                ropes.get(Integer.parseInt(cp[1]) - 1).index(Integer.parseInt(cp[2]));
+            }
         } while (!command.equalsIgnoreCase("exit"));
     }
 }

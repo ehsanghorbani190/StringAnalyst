@@ -89,14 +89,7 @@ public class Rope {
         make(result);
     }
     public void index(int index){
-        String s1 = toString();
-        char[] arr = s1.toCharArray();
-        char c = 0;
-        for ( int i =0 ; i<=index ; i++){
-          c = arr[i];
-
-        }
-        System.out.println(c);
+        System.out.println(toString().charAt(index));
     }
     public void delete(int from , int to ){
         String s1 = toString();

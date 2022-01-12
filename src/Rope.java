@@ -88,6 +88,16 @@ public class Rope {
         result += s1.substring(index);
         make(result);
     }
+    public void index(int index){
+        String s1 = toString();
+        char[] arr = s1.toCharArray();
+        char c = 0;
+        for ( int i =0 ; i<=index ; i++){
+          c = arr[i];
+
+        }
+        System.out.println(c);
+    }
 
     public Rope split(int index) {
         index++;
@@ -248,12 +258,13 @@ public class Rope {
         }
     }
 
+
     public static void main(String[] args) {
         Rope r = new Rope();
 
         r.make("Hello Ehsan  Are You Doing These Days");
-        r.insert(12 ,"how");
-        r.print();
+        r.index(2);
+
     }
 }
 

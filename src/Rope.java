@@ -39,7 +39,6 @@ public class Rope {
             strs[i] = strs[i] + " ";
         }
 
-        //System.out.println(strs.length);
         add(strs, root, 0, strs.length);
 
     }
@@ -79,6 +78,18 @@ public class Rope {
         root = w;
     }
 
+
+    public void insert(int index, String s2) {
+        String s1 = this.toString();
+        System.out.println(s1.length());
+//        String result = "";
+//        result += s1.substring(0, index + 1);
+//
+//        result += s2;
+//        result += s1.substring(index);
+        // make(result);
+    }
+
     public Rope split(int index) {
         index++;
         Rope result = new Rope();
@@ -114,6 +125,7 @@ public class Rope {
         return weight(node.right) + weight(node.left);
     }
 
+
     private void rebalance(Node node) {
         if (node == null) return;
         if (node.string == null) node.data = weight(node.left);
@@ -129,6 +141,7 @@ public class Rope {
         deleteEmpties(node.right);
         deleteEmpties(node.left);
     }
+
 
     public static void printTree(Node root) {
         List<List<String>> lines = new ArrayList<List<String>>();
@@ -238,10 +251,12 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
+
         r.make("Hello Ehsan How Are You Doing These Days");
         Rope.printTree(r.root);
         r.split(15);
         Rope.printTree(r.root);
+
 
     }
 }

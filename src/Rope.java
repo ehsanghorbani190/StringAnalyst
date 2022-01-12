@@ -82,10 +82,10 @@ public class Rope {
     public void insert(int index, String s2) {
         String s1 = toString();
         String result = "";
-        result += s1.substring(0, index);
+        result += s1.substring(0, index + 1);
 
         result += s2;
-        result += s1.substring(index);
+        result += s1.substring(index+1);
         make(result);
     }
 
@@ -107,8 +107,8 @@ public class Rope {
 //            result[from] = arr[j];
 //        }
 //
-        String str = new String("");
-        str = s1.substring(0, from) + s1.substring(to+1);
+        String str = "";
+        str = s1.substring(0, from) + s1.substring(to);
         root = new Node();
         make(str);
 
@@ -276,8 +276,8 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("Hello Ehsan  Are You Doing These Days");
-        r.delete(0, 4);
+        r.make("I--student");
+        r.insert(1 , "am");
         r.print();
     }
 }

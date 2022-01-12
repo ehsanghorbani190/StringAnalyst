@@ -16,15 +16,16 @@ public class Rope {
         this.root = new Node();
     }
 
-    public Node add(List<String> string, Node node) {
-        int q = string.size();
+    public Node add(String[] string, Node node ,int start , int end) {
+        int q = end - start;
         if (q == 1) {
-            node.string = string.get(0);
-            node.data = string.get(0).length();
+            node.string = string[start];
+            node.data = string[start].length();
 
         } else {
-            node.left = add(string.subList(0, (int) (Math.ceil(q / 2) + 1)), new Node());
-            node.right = add(string.subList((int) (Math.ceil(q / 2)), q), new Node());
+            int p = (q%2 == 0) ? q/2 : q/2 + 1;
+            node.left = add(string, new Node() , start , p + start );
+            node.right = add(string, new Node() , p + start  , end);
             node.data = weight(node.left);
 
         }
@@ -38,8 +39,9 @@ public class Rope {
         for (int i = 0; i < strs.length - 1; i++) {
             strs[i] = strs[i] + " ";
         }
-        List<String> myList = new ArrayList<String>(Arrays.asList(strs));
-        add(myList, root);
+
+        //System.out.println(strs.length);
+        add(strs, root , 0 , strs.length);
 
     }
 
@@ -170,8 +172,9 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("Hello This is a test String, How Are You?");
+        r.make("Hello Ehsan I Good How Are You How Are You im");
         r.print();
+        Rope.printTree(r.root);
         Rope r2 = new Rope();
         r2.make("Hello This is a test 2");
         r2.print();

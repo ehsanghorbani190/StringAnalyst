@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Rope {
@@ -16,16 +15,16 @@ public class Rope {
         this.root = new Node();
     }
 
-    public Node add(String[] string, Node node ,int start , int end) {
+    private Node add(String[] string, Node node, int start, int end) {
         int q = end - start;
         if (q == 1) {
             node.string = string[start];
             node.data = string[start].length();
 
         } else {
-            int p = (q%2 == 0) ? q/2 : q/2 + 1;
-            node.left = add(string, new Node() , start , p + start );
-            node.right = add(string, new Node() , p + start  , end);
+            int p = (q % 2 == 0) ? q / 2 : q / 2 + 1;
+            node.left = add(string, new Node(), start, p + start);
+            node.right = add(string, new Node(), p + start, end);
             node.data = weight(node.left);
 
         }
@@ -41,7 +40,7 @@ public class Rope {
         }
 
         //System.out.println(strs.length);
-        add(strs, root , 0 , strs.length);
+        add(strs, root, 0, strs.length);
 
     }
 
@@ -58,6 +57,30 @@ public class Rope {
         rprint(node.right);
     }
 
+    private void string(String str, Node node) {
+        if (node == null) return;
+        if (node.string != null) str += node.string;
+        string(str, node.left);
+        string(str, node.right);
+    }
+
+    @Override
+    public String toString() {
+        String res = "";
+        string(res, root);
+        return res;
+    }
+
+    public void concat(Rope s){
+        Node w = new Node();
+        w.left = root;
+        w.data = weight(w.left);
+        w.right = s.root;
+        root = w;
+    }
+    public Rope split(int index){
+        
+    }
     public int weight(Node node) {
         if (node == null) return 0;
         if (node.string != null) return node.data;
@@ -172,12 +195,13 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("Hello Ehsan I Good How Are You How Are You im");
+        r.make("Hello Ehsan");
         r.print();
-        Rope.printTree(r.root);
         Rope r2 = new Rope();
-        r2.make("Hello This is a test 2");
+        r2.make("How Are You");
         r2.print();
+        r.concat(r2);
+        r.print();
 
     }
 }

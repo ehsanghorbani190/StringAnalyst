@@ -79,7 +79,7 @@ public class Rope {
         root = w;
     }
     public Rope split(int index){
-        
+
     }
     public int weight(Node node) {
         if (node == null) return 0;

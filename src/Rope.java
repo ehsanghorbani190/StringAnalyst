@@ -116,7 +116,7 @@ public class Rope {
     }
 
     public Rope split(int index) {
-        index++;
+        index+=2;
         Rope result = new Rope();
         Node temp = root, rtemp = result.root, w;
         while (temp.string == null) {

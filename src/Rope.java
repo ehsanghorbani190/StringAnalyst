@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Rope {
@@ -11,69 +12,57 @@ public class Rope {
 
     Node root;
 
-    Rope(){
+    Rope() {
         this.root = new Node();
     }
-    public void make(String string) {
-        int q = string.length();
-        String[] s = string.split(" ");
-        for (int i = 0; i < s.length - 1; i++) {
-            s[i] = s[i] + " ";
+
+    public Node add(List<String> string, Node node) {
+        int q = string.size();
+        if (q == 1) {
+            node.string = string.get(0);
+            node.data = string.get(0).length();
+
+        } else {
+            node.left = add(string.subList(0, (int) (Math.ceil(q / 2) + 1)), new Node());
+            node.right = add(string.subList((int) (Math.ceil(q / 2)), q), new Node());
+            node.data = weight(node.left);
+
         }
-        int a = 0;
+        return node;
 
-        for (String str : s) {
-            if (root.left == null) {
-                root.left = new Node();
-                root.left.string = str;
-                root.left.data = str.length();
-                root.data = weight(root.left);
 
-            } else if (root.right == null) {
-                root.right = new Node();
-                root.right.string = str;
-                root.right.data = str.length();
-
-            } else if (root.right.string != null && a + str.length() < q / 2) {
-                Node w = new Node();
-                w.left = root.right;
-                w.right = new Node();
-                w.right.string = str;
-                w.right.data = str.length();
-                w.data = weight(w.left);
-                root.right = w;
-
-            } else {
-                Node w = new Node();
-                w.right = new Node();
-                w.left = root;
-                root = w;
-                w.right.string = str;
-                w.right.data = str.length();
-                w.data = weight(w.left);
-            }
-            a += str.length();
-        }
     }
-    public void print(){
+
+    public void make(String str) {
+        String[] strs = str.split(" ");
+        for (int i = 0; i < strs.length - 1; i++) {
+            strs[i] = strs[i] + " ";
+        }
+        List<String> myList = new ArrayList<String>(Arrays.asList(strs));
+        add(myList, root);
+
+    }
+
+    public void print() {
         rprint(root);
         System.out.println();
     }
-    private void rprint(Node node){
-        if(node == null) return;
-        if(node.string != null) System.out.print(node.string);
+
+    private void rprint(Node node) {
+        if (node == null) return;
+        if (node.string != null) System.out.print(node.string);
 //        else System.out.println(weight(node));
         rprint(node.left);
         rprint(node.right);
     }
-    public int weight(Node node){
-        if(node == null) return 0;
-        if(node.string != null) return node.data;
+
+    public int weight(Node node) {
+        if (node == null) return 0;
+        if (node.string != null) return node.data;
         return weight(node.right) + weight(node.left);
     }
 
-    public static void printTree(Node root)
-    {
+    public static void printTree(Node root) {
         List<List<String>> lines = new ArrayList<List<String>>();
 
         List<Node> level = new ArrayList<Node>();
@@ -178,6 +167,7 @@ public class Rope {
             perpiece /= 2;
         }
     }
+
     public static void main(String[] args) {
         Rope r = new Rope();
         r.make("Hello This is a test String, How Are You?");

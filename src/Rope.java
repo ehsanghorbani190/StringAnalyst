@@ -71,20 +71,63 @@ public class Rope {
         return res;
     }
 
-    public void concat(Rope s){
+    public void concat(Rope s) {
         Node w = new Node();
         w.left = root;
         w.data = weight(w.left);
         w.right = s.root;
         root = w;
     }
-    public Rope split(int index){
 
+    public Rope split(int index) {
+        index++;
+        Rope result = new Rope();
+        Node temp = root, rtemp = result.root, w;
+        while (temp.string == null) {
+            if (index >= temp.data) {
+                index -= temp.data;
+                temp = temp.right;
+            } else {
+                rtemp.right = root.right;
+                rtemp.left = new Node();
+                rtemp = rtemp.left;
+                temp = temp.left;
+                root = temp;
+            }
+        }
+        w = new Node();
+        w.string = temp.string.substring(index);
+        w.data = w.string.length();
+        rtemp.left = w;
+        temp.string = temp.string.substring(0, index);
+        temp.data = temp.string.length();
+        result.root.data = weight(result.root.left);
+        deleteEmpties(root);
+        deleteEmpties(result.root);
+        rebalance(result.root.left);
+        return result;
     }
+
     public int weight(Node node) {
         if (node == null) return 0;
         if (node.string != null) return node.data;
         return weight(node.right) + weight(node.left);
+    }
+
+    private void rebalance(Node node) {
+        if (node == null) return;
+        if (node.string == null) node.data = weight(node.left);
+        rebalance(node.left);
+        rebalance(node.right);
+    }
+
+    private void deleteEmpties(Node node) {
+        if (node == null || node.string != null) return;
+        if (node.right != null && node.right.string != null && node.right.string.equals("")) node.right = null;
+        if (node.left != null && node.left.string != null && node.left.string.equals("")) node.left = null;
+
+        deleteEmpties(node.right);
+        deleteEmpties(node.left);
     }
 
     public static void printTree(Node root) {
@@ -195,13 +238,10 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("Hello Ehsan");
-        r.print();
-        Rope r2 = new Rope();
-        r2.make("How Are You");
-        r2.print();
-        r.concat(r2);
-        r.print();
+        r.make("Hello Ehsan How Are You Doing These Days");
+        Rope.printTree(r.root);
+        r.split(15);
+        Rope.printTree(r.root);
 
     }
 }

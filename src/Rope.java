@@ -56,18 +56,18 @@ public class Rope {
         rprint(node.right);
     }
 
-    private void string(String str, Node node) {
+    private void string(StringBuilder str, Node node) {
         if (node == null) return;
-        if (node.string != null) str += node.string;
+        if (node.string != null) str.append(node.string);
         string(str, node.left);
         string(str, node.right);
     }
 
     @Override
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         string(res, root);
-        return res;
+        return res.toString();
     }
 
     public void concat(Rope s) {
@@ -80,14 +80,13 @@ public class Rope {
 
 
     public void insert(int index, String s2) {
-        String s1 = this.toString();
-        System.out.println(s1.length());
-//        String result = "";
-//        result += s1.substring(0, index + 1);
-//
-//        result += s2;
-//        result += s1.substring(index);
-        // make(result);
+        String s1 = toString();
+        String result = "";
+        result += s1.substring(0, index );
+
+        result += s2;
+        result += s1.substring(index);
+        make(result);
     }
 
     public Rope split(int index) {
@@ -252,12 +251,9 @@ public class Rope {
     public static void main(String[] args) {
         Rope r = new Rope();
 
-        r.make("Hello Ehsan How Are You Doing These Days");
-        Rope.printTree(r.root);
-        r.split(15);
-        Rope.printTree(r.root);
-
-
+        r.make("Hello Ehsan  Are You Doing These Days");
+        r.insert(12 ,"how");
+        r.print();
     }
 }
 

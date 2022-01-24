@@ -116,18 +116,21 @@ public class Rope {
 
     public Rope split(int index) {
         index += 2;
+		boolean wentRight = false;
         Rope result = new Rope();
         Node temp = root, rtemp = result.root, w;
         while (temp.string == null) {
             if (index >= temp.data) {
                 index -= temp.data;
                 temp = temp.right;
+				wentRight = true;
             } else {
                 rtemp.right = root.right;
                 rtemp.left = new Node();
                 rtemp = rtemp.left;
                 temp = temp.left;
-                root = temp;
+				if( wentRight ) root.right = null;
+                else root = temp;
             }
         }
         w = new Node();

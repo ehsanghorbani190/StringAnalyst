@@ -7,10 +7,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         ArrayList<Rope> ropes = new ArrayList<Rope>();
-//        Trie trie = new Trie();
-//        Scanner trieInput = new Scanner(new FileInputStream(new File("./input.txt")));
-//        while (trieInput.hasNextLine()) trie.insert(trieInput.nextLine());
-//        trieInput.close();
+        Trie trie = new Trie();
+        Scanner trieInput = new Scanner(new FileInputStream("./src/input.txt"));
+        while (trieInput.hasNextLine()) trie.insert(trieInput.nextLine());
+        trieInput.close();
         Scanner in = new Scanner(System.in);
         String command;
         do {
@@ -43,18 +43,31 @@ public class Main {
                 ropes.get(Integer.parseInt(cp[1]) - 1).index(Integer.parseInt(cp[2]));
             } else if (command.equalsIgnoreCase("delete")) {
                 ropes.get(Integer.parseInt(cp[1]) - 1).delete(Integer.parseInt(cp[2]) - 1, Integer.parseInt(cp[3]) - 1);
-            }
-            else if(command.equalsIgnoreCase("insert")){
+            } else if (command.equalsIgnoreCase("insert")) {
                 ropes.get(Integer.parseInt(cp[1]) - 1).insert(Integer.parseInt(cp[2]), ropes.get(Integer.parseInt(cp[3]) - 1).toString());
-            }
-            else if(command.equalsIgnoreCase("tree")){
+            } else if (command.equalsIgnoreCase("tree")) {
                 for (Rope r :
                         ropes) {
                     Rope.printTree(r.root);
                 }
+            } else if (command.equalsIgnoreCase("autocomplete")) {
+                String[] g = trie.guess(cp[1]);
+                if(g == null || g.length == 0 ) {
+                    System.out.println("No word found in trie with that prefix!");
+                    continue;
+                }
+                for (int i = 0; i < g.length; i++) {
+                    System.out.println((i + 1) + ". " + g[i]);
+                }
+                System.out.print("Enter your choice to make a new rope of: ");
+                int n = in.nextInt();
+                Rope r = new Rope();
+                r.make(g[n - 1]);
+                ropes.add(r);
+            } else if (command.equalsIgnoreCase("exit")) break;
+            else if (command.equalsIgnoreCase("")) {
             }
-            else if(command.equalsIgnoreCase("exit")) continue;
-            else{
+            else {
                 System.out.println("**INVALID COMMAND**");
             }
         } while (!command.equalsIgnoreCase("exit"));

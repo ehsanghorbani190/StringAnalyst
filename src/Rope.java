@@ -85,7 +85,7 @@ public class Rope {
         result += s1.substring(0, index + 1);
 
         result += s2;
-        result += s1.substring(index+1);
+        result += s1.substring(index + 1);
         make(result);
     }
 
@@ -116,27 +116,33 @@ public class Rope {
 
     public Rope split(int index) {
         index += 2;
-		boolean wentRight = false;
+        boolean wentRight = false;
         Rope result = new Rope();
         Node temp = root, rtemp = result.root, w;
         while (temp.string == null) {
             if (index >= temp.data) {
                 index -= temp.data;
                 temp = temp.right;
-				wentRight = true;
+                wentRight = true;
             } else {
-                rtemp.right = root.right;
+                rtemp.right = temp.right;
                 rtemp.left = new Node();
                 rtemp = rtemp.left;
+                if (wentRight) temp.right = null;
                 temp = temp.left;
-				if( wentRight ) root.right = null;
-                else root = temp;
+                if (!wentRight) root = temp;
+
             }
         }
-        w = new Node();
-        w.string = temp.string.substring(index);
-        w.data = w.string.length();
-        rtemp.left = w;
+        Node n;
+        if(rtemp.right == null) n = rtemp;
+        else {
+            rtemp.left = new Node();
+            n = rtemp.left;
+        }
+        n.string = temp.string.substring(index);
+        n.data = n.string.length();
+
         temp.string = temp.string.substring(0, index);
         temp.data = temp.string.length();
         result.root.data = weight(result.root.left);
@@ -280,7 +286,7 @@ public class Rope {
     public static void main(String[] args) {
         Rope r = new Rope();
         r.make("I--student");
-        r.insert(1 , "am");
+        r.insert(1, "am");
         r.print();
     }
 }

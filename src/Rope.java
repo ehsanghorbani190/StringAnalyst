@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Rope {
     class Node {
@@ -96,17 +98,23 @@ public class Rope {
     public void delete(int from, int to) {
         String s1 = toString();
 
-//        char[] arr = s1.toCharArray() ;
-//        char[] result = new char[s1.length()];
-//        System.out.println(arr);
-//        for ( int i =0 ; i<from; i++){
-//           result[i] = arr[i];
-//        }
-//        System.out.println(result);
-//        for(int j = to+ 1 ; j< arr.length ; j++){
-//            result[from] = arr[j];
-//        }
-//
+        if (root == null)
+            return;
+        Queue<Node> q = new LinkedList<Node>();
+
+        // Do level order traversal starting from root
+        q.add(root);
+        while (!q.isEmpty())
+        {
+            Node node = q.peek();
+            q.poll();
+
+            if (node.left != null)
+                q.add(node.left);
+            if (node.right != null)
+                q.add(node.right);
+        }
+
         String str = "";
         str = s1.substring(0, from) + s1.substring(to);
         root = new Node();

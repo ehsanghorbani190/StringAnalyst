@@ -79,30 +79,40 @@ public class Rope {
     }
 
 
-    public void insert(int index, String s2) {
-        String s1 = toString();
-        String result = "";
-        result += s1.substring(0, index + 1);
+//    public void insert(int index, String s2) {
+//        String s1 = toString();
+//        String result = "";
+//        result += s1.substring(0, index + 1);
+//
+//        result += s2;
+//        result += s1.substring(index + 1);
+//        make(result);
+//    }
 
-        result += s2;
-        result += s1.substring(index + 1);
-        make(result);
-    }
 
     public void index(int index) {
         System.out.println(toString().charAt(index));
     }
+public Rope insert(int index , int index2){
 
+    Rope result = new Rope();
+    Rope w = new Rope();
+    w = result.split(index2) ;
+    Rope x = new Rope();
+    x = result.split(index);
+    Rope q = new Rope();
+   x.concat(new Rope());
+    x.concat(result);
+}
 
         public Rope delete(int index , int index2){
             Rope result = new Rope();
-            Node temp = root, rtemp = result.root;
             Rope w = new Rope();
-             w = result.split(index2);
+             w = result.split(index2) ;
             Rope x = new Rope();
-            x=result.split(index);
-
-
+            x=w.split(index);
+            x.concat(result);
+              return  x ;
         }
 
 
@@ -281,9 +291,11 @@ public class Rope {
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("I--student");
-        r.insert(1, "am");
+        r.make("hello sth word");
+     //   r.insert(1, "am");
+        r.delete(6 , 10 );
         r.print();
+
     }
 }
 

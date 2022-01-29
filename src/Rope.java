@@ -79,17 +79,6 @@ public class Rope {
     }
 
 
-//    public void insert(int index, String s2) {
-//        String s1 = toString();
-//        String result = "";
-//        result += s1.substring(0, index + 1);
-//
-//        result += s2;
-//        result += s1.substring(index + 1);
-//        make(result);
-//    }
-
-
     public char index(int index) {
 
         Node temp = root;
@@ -100,31 +89,23 @@ public class Rope {
 
             } else {
                 temp = temp.left;
-
-
             }
         }
-       return  temp.string.charAt(index);
+        return temp.string.charAt(index);
     }
-public void insert(int index  , Rope s2){
-    Rope result = new Rope();
-    Rope w = new Rope();
-    w = this.split(index) ;
-    this.concat(s2);
-    this.concat(w);
-}
 
-        public Rope delete(int index , int index2){
-            Rope w = new Rope();
-             w = this.split(index2) ;
-            Rope x = new Rope();
-            x=this.split(index);
-            this.concat(w);
-              return  x ;
-        }
+    public void insert(int index, Rope s2) {
+        Rope w =this.split(index);
+        this.concat(s2);
+        this.concat(w);
+    }
 
-
-
+    public Rope delete(int index, int index2) {
+        Rope w = this.split(index2);
+        Rope x =this.split(index);
+        this.concat(w);
+        return x;
+    }
 
 
     public Rope split(int index) {
@@ -148,7 +129,7 @@ public void insert(int index  , Rope s2){
             }
         }
         Node n;
-        if(rtemp.right == null) n = rtemp;
+        if (rtemp.right == null) n = rtemp;
         else {
             rtemp.left = new Node();
             n = rtemp.left;
@@ -302,9 +283,9 @@ public void insert(int index  , Rope s2){
         Rope w = new Rope();
         r.make("a new string here");
         w.make("am");
-      r.index(6);
-      //  r.delete(6 , 10 );
-System.out.println(r.index(6));
+        r.index(6);
+        //  r.delete(6 , 10 );
+        System.out.println(r.index(6));
         r.print();
 
     }

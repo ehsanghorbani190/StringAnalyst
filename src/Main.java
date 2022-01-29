@@ -39,11 +39,11 @@ public class Main {
                 Rope temp = ropes.get(Integer.parseInt(cp[1]) - 1).split(Integer.parseInt(cp[2]) - 1);
                 ropes.add(temp);
             } else if (command.equalsIgnoreCase("index")) {
-                ropes.get(Integer.parseInt(cp[1]) - 1).index(Integer.parseInt(cp[2]));
+                System.out.println(ropes.get(Integer.parseInt(cp[1]) - 1).index(Integer.parseInt(cp[2])));
             } else if (command.equalsIgnoreCase("delete")) {
                 ropes.get(Integer.parseInt(cp[1]) - 1).delete(Integer.parseInt(cp[2]) - 1, Integer.parseInt(cp[3]) - 1);
             } else if (command.equalsIgnoreCase("insert")) {
-              //  ropes.get(Integer.parseInt(cp[1]) - 1).insert(Integer.parseInt(cp[2]), ropes.get(Integer.parseInt(cp[3]) - 1).toString());
+                ropes.get(Integer.parseInt(cp[1]) - 1).insert(Integer.parseInt(cp[2]), ropes.get(Integer.parseInt(cp[3]) - 1));
             } else if (command.equalsIgnoreCase("tree")) {
                 for (Rope r :
                         ropes) {

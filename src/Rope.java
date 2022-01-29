@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class Rope {
     class Node {
@@ -95,32 +93,88 @@ public class Rope {
         System.out.println(toString().charAt(index));
     }
 
-    public void delete(int from, int to) {
-        String s1 = toString();
 
-        if (root == null)
-            return;
-        Queue<Node> q = new LinkedList<Node>();
+        public Rope delete(int index , int index2){
+            index2 += 2;
+            boolean wentRight = false;
+            Rope result = new Rope();
+            Node temp = root, rtemp = result.root, w;
+            while (temp.string == null) {
+                if (index2 >= temp.data) {
+                    index2 -= temp.data;
+                    temp = temp.right;
+                    wentRight = true;
+                } else {
+                    rtemp.right = temp.right;
+                    rtemp.left = new Node();
+                    rtemp = rtemp.left;
+                    if (wentRight) temp.right = null;
+                    temp = temp.left;
+                    if (!wentRight) root = temp;
 
-        // Do level order traversal starting from root
-        q.add(root);
-        while (!q.isEmpty())
-        {
-            Node node = q.peek();
-            q.poll();
+                }
+            }
+            Node n;
+            if(rtemp.right == null) n = rtemp;
+            else {
+                rtemp.left = new Node();
+                n = rtemp.left;
+            }
+            n.string = temp.string.substring(index2);
+            n.data = n.string.length();
 
-            if (node.left != null)
-                q.add(node.left);
-            if (node.right != null)
-                q.add(node.right);
+
+            temp.string = temp.string.substring(0, index2);
+            temp.data = temp.string.length();
+            result.root.data = weight(result.root.left);
+            deleteEmpties(root);
+            deleteEmpties(result.root);
+            rebalance(result.root.left);
+            return result;
+
+            index += 2;
+            boolean wentRight1 = false;
+            Rope result1 = new Rope();
+            Node temp1 = root, rtemp1 = result.root;
+            while (temp.string == null) {
+                if (index >= temp.data) {
+                    index -= temp.data;
+                    temp = temp.right;
+                    wentRight = true;
+                } else {
+                    rtemp.right = temp.right;
+                    rtemp.left = new Node();
+                    rtemp = rtemp.left;
+                    if (wentRight) temp.right = null;
+                    temp = temp.left;
+                    if (!wentRight) root = temp;
+
+                }
+            }
+            Node q;
+            if(rtemp.right == null) n = rtemp;
+            else {
+                rtemp.left = new Node();
+                n = rtemp.left;
+            }
+            n.string = temp.string.substring(index);
+            n.data = n.string.length();
+
+
+            temp.string = temp.string.substring(0, index);
+            temp.data = temp.string.length();
+            result.root.data = weight(result.root.left);
+            deleteEmpties(root);
+            deleteEmpties(result.root);
+            rebalance(result.root.left);
+            return result;
+
+
         }
 
-        String str = "";
-        str = s1.substring(0, from) + s1.substring(to);
-        root = new Node();
-        make(str);
 
-    }
+
+
 
     public Rope split(int index) {
         index += 2;
@@ -150,6 +204,7 @@ public class Rope {
         }
         n.string = temp.string.substring(index);
         n.data = n.string.length();
+
 
         temp.string = temp.string.substring(0, index);
         temp.data = temp.string.length();

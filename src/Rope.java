@@ -90,11 +90,36 @@ public class Rope {
 //    }
 
 
-    public void index(int index) {
-        System.out.println(toString().charAt(index));
+    public String index(int index) {
+        index += 2;
+        boolean wentRight = false;
+        Rope result = new Rope();
+        Node temp = root, rtemp = result.root, w;
+        while (temp.string == null) {
+            if (index >= temp.data) {
+                index -= temp.data;
+                temp = temp.right;
+                wentRight = true;
+            } else {
+                rtemp.right = temp.right;
+                rtemp.left = new Node();
+                rtemp = rtemp.left;
+                if (wentRight) temp.right = null;
+                temp = temp.left;
+                if (!wentRight) root = temp;
+
+            }
+        }
+        Node n;
+        if(rtemp.right == null) n = rtemp;
+        else {
+            rtemp.left = new Node();
+            n = rtemp.left;
+        }
+      //  System.out.println(toString().charAt(index));
+       return  n.string;
     }
 public Rope insert(int index , int index2){
-
     Rope result = new Rope();
     Rope w = new Rope();
     w = result.split(index2) ;
@@ -103,6 +128,8 @@ public Rope insert(int index , int index2){
     Rope q = new Rope();
    x.concat(new Rope());
     x.concat(result);
+    return x;
+
 }
 
         public Rope delete(int index , int index2){

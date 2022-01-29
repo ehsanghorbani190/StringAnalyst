@@ -95,79 +95,12 @@ public class Rope {
 
 
         public Rope delete(int index , int index2){
-            index2 += 2;
-            boolean wentRight = false;
             Rope result = new Rope();
-            Node temp = root, rtemp = result.root, w;
-            while (temp.string == null) {
-                if (index2 >= temp.data) {
-                    index2 -= temp.data;
-                    temp = temp.right;
-                    wentRight = true;
-                } else {
-                    rtemp.right = temp.right;
-                    rtemp.left = new Node();
-                    rtemp = rtemp.left;
-                    if (wentRight) temp.right = null;
-                    temp = temp.left;
-                    if (!wentRight) root = temp;
-
-                }
-            }
-            Node n;
-            if(rtemp.right == null) n = rtemp;
-            else {
-                rtemp.left = new Node();
-                n = rtemp.left;
-            }
-            n.string = temp.string.substring(index2);
-            n.data = n.string.length();
-
-
-            temp.string = temp.string.substring(0, index2);
-            temp.data = temp.string.length();
-            result.root.data = weight(result.root.left);
-            deleteEmpties(root);
-            deleteEmpties(result.root);
-            rebalance(result.root.left);
-            return result;
-
-            index += 2;
-            boolean wentRight1 = false;
-            Rope result1 = new Rope();
-            Node temp1 = root, rtemp1 = result.root;
-            while (temp.string == null) {
-                if (index >= temp.data) {
-                    index -= temp.data;
-                    temp = temp.right;
-                    wentRight = true;
-                } else {
-                    rtemp.right = temp.right;
-                    rtemp.left = new Node();
-                    rtemp = rtemp.left;
-                    if (wentRight) temp.right = null;
-                    temp = temp.left;
-                    if (!wentRight) root = temp;
-
-                }
-            }
-            Node q;
-            if(rtemp.right == null) n = rtemp;
-            else {
-                rtemp.left = new Node();
-                n = rtemp.left;
-            }
-            n.string = temp.string.substring(index);
-            n.data = n.string.length();
-
-
-            temp.string = temp.string.substring(0, index);
-            temp.data = temp.string.length();
-            result.root.data = weight(result.root.left);
-            deleteEmpties(root);
-            deleteEmpties(result.root);
-            rebalance(result.root.left);
-            return result;
+            Node temp = root, rtemp = result.root;
+            Rope w = new Rope();
+             w = result.split(index2);
+            Rope x = new Rope();
+            x=result.split(index);
 
 
         }

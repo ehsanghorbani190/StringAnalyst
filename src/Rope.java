@@ -90,55 +90,36 @@ public class Rope {
 //    }
 
 
-    public String index(int index) {
-        index += 2;
-        boolean wentRight = false;
-        Rope result = new Rope();
-        Node temp = root, rtemp = result.root, w;
+    public char index(int index) {
+
+        Node temp = root;
         while (temp.string == null) {
             if (index >= temp.data) {
                 index -= temp.data;
                 temp = temp.right;
-                wentRight = true;
+
             } else {
-                rtemp.right = temp.right;
-                rtemp.left = new Node();
-                rtemp = rtemp.left;
-                if (wentRight) temp.right = null;
                 temp = temp.left;
-                if (!wentRight) root = temp;
+
 
             }
         }
-        Node n;
-        if(rtemp.right == null) n = rtemp;
-        else {
-            rtemp.left = new Node();
-            n = rtemp.left;
-        }
-      //  System.out.println(toString().charAt(index));
-       return  n.string;
+       return  temp.string.charAt(index);
     }
-public Rope insert(int index , int index2){
+public void insert(int index  , Rope s2){
     Rope result = new Rope();
     Rope w = new Rope();
-    w = result.split(index2) ;
-    Rope x = new Rope();
-    x = result.split(index);
-    Rope q = new Rope();
-   x.concat(new Rope());
-    x.concat(result);
-    return x;
-
+    w = this.split(index) ;
+    this.concat(s2);
+    this.concat(w);
 }
 
         public Rope delete(int index , int index2){
-            Rope result = new Rope();
             Rope w = new Rope();
-             w = result.split(index2) ;
+             w = this.split(index2) ;
             Rope x = new Rope();
-            x=w.split(index);
-            x.concat(result);
+            x=this.split(index);
+            this.concat(w);
               return  x ;
         }
 
@@ -147,7 +128,7 @@ public Rope insert(int index , int index2){
 
 
     public Rope split(int index) {
-        index += 2;
+
         boolean wentRight = false;
         Rope result = new Rope();
         Node temp = root, rtemp = result.root, w;
@@ -318,9 +299,12 @@ public Rope insert(int index , int index2){
 
     public static void main(String[] args) {
         Rope r = new Rope();
-        r.make("hello sth word");
-     //   r.insert(1, "am");
-        r.delete(6 , 10 );
+        Rope w = new Rope();
+        r.make("a new string here");
+        w.make("am");
+      r.index(6);
+      //  r.delete(6 , 10 );
+System.out.println(r.index(6));
         r.print();
 
     }

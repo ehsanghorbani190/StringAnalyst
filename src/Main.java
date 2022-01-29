@@ -43,7 +43,7 @@ public class Main {
             } else if (command.equalsIgnoreCase("delete")) {
                 ropes.get(Integer.parseInt(cp[1]) - 1).delete(Integer.parseInt(cp[2]) - 1, Integer.parseInt(cp[3]) - 1);
             } else if (command.equalsIgnoreCase("insert")) {
-                ropes.get(Integer.parseInt(cp[1]) - 1).insert(Integer.parseInt(cp[2]), ropes.get(Integer.parseInt(cp[3]) - 1).toString());
+              //  ropes.get(Integer.parseInt(cp[1]) - 1).insert(Integer.parseInt(cp[2]), ropes.get(Integer.parseInt(cp[3]) - 1).toString());
             } else if (command.equalsIgnoreCase("tree")) {
                 for (Rope r :
                         ropes) {
